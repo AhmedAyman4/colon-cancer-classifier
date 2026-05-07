@@ -6,15 +6,24 @@
 ![Accuracy](https://img.shields.io/badge/Test%20Accuracy-99.19%25-brightgreen)
 ![Dataset](https://img.shields.io/badge/Dataset-LC25000-lightgrey)
 ![License](https://img.shields.io/badge/License-Academic-orange)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/ahmed-ayman/colon-cancer-classifier)
 
 > Binary classification of colon histopathology images into **Colon Adenocarcinoma**
 > vs **Benign Tissue** using transfer learning on the LC25000 dataset.
+
+## Live Demo
+Check out the live web application on Hugging Face Spaces: [Colon Cancer Classifier](https://huggingface.co/spaces/ahmed-ayman/colon-cancer-classifier)
 
 
 ## Repository Structure
 ```text
 ├── final-saved-models/   # Production-ready trained models (.keras)
 │   └── best_*.keras      # Best performing model checkpoints
+├── huggingface_space/    # Deployment files for Hugging Face Spaces
+│   ├── static/           # Frontend assets (HTML, CSS, JS)
+│   ├── app.py            # FastAPI backend
+│   ├── Dockerfile        # Container configuration
+│   └── requirements.txt  # Python dependencies
 ├── notebooks/            # Jupyter notebooks for development
 │   ├── final_*.ipynb     # Final training and evaluation pipeline
 │   ├── v0, v1_*.ipynb    # Experimental and versioned iterations
