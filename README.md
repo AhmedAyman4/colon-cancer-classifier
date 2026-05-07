@@ -22,6 +22,8 @@
 └── README.md             # Project documentation
 ```
 
+> **View Final Notebook:** [final_colon_cancer_classifier_using_efficientnet.ipynb](https://github.com/AhmedAyman4/colon-cancer-classifier/blob/main/notebooks/final_colon_cancer_classifier_using_efficientnet.ipynb)
+
 ---
 
 ## Dataset & Pipeline
