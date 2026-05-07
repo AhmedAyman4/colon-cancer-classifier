@@ -11,146 +11,43 @@
 > vs **Benign Tissue** using transfer learning on the LC25000 dataset.
 
 
----
-
-## Dataset
-
-**LC25000 — Lung and Colon Cancer Histopathological Images**
-- **Source:** [Kaggle — andrewmvd/lung-and-colon-cancer-histopathological-images](https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images)
-- **Classes used:** `colon_aca` (Colon Adenocarcinoma), `colon_n` (Benign Tissue)
-- **Total images:** 10,000 (5,000 per class)
-- **Image size:** 224x224 px
-
----
-
-## Pipeline Overview
-
-### 1. Data Splitting
-| Split | Size | Purpose |
-|-------|------|---------|
-| Train | 80% (8,000) | Model learning |
-| Validation | 10% (1,000) | Hyperparameter tuning |
-| Test | 10% (~992) | Final evaluation |
-
-### 2. Augmentation (training only)
-- Random horizontal flip
-- Random rotation +/-15 degrees
-- Random translation +/-5%
-- Random zoom +/-10%
-- ResNet50-style preprocessing (ImageNet zero-centering)
-
-### 3. Performance Optimization
-- tf.data pipeline with .cache() and .prefetch(AUTOTUNE)
-- Parallel map operations for GPU utilization
+## Repository Structure
+```text
+├── final-saved-models/   # Production-ready trained models (.keras)
+│   └── best_*.keras      # Best performing model checkpoints
+├── notebooks/            # Jupyter notebooks for development
+│   ├── final_*.ipynb     # Final training and evaluation pipeline
+│   ├── v0, v1_*.ipynb    # Experimental and versioned iterations
+│   └── reference/        # Reference materials and research
+└── README.md             # Project documentation
+```
 
 ---
+
+## Dataset & Pipeline
+- **Dataset:** [LC25000](https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images) — 10,000 images (5,000 `colon_aca`, 5,000 `colon_n`).
+- **Splits:** 80% Train, 10% Val, 10% Test.
+- **Preprocessing:** Augmentation (flip, rotation, zoom) + `tf.data` optimization (cache & prefetch).
 
 ## Model Architecture
+Using **EfficientNetB3** (frozen backbone) with a custom classification head:
+- `GlobalAveragePooling2D` -> `Dense(128, ReLU)` -> `Dropout(0.3)` -> `Dense(2, Softmax)`.
+- **Trainable Parameters:** 197,250 (~1.8%).
 
-**Backbone:** EfficientNetB3 (frozen, pretrained on ImageNet)
+## Training & Results
+- **Optimizer:** Adam (LR: 1e-4) | **Batch Size:** 16 | **Epochs:** 50 (Early Stopping).
+- **Performance:** 99.19% Test Accuracy (F1-Score: 0.99).
 
-```
-Input (224x224x3)
-  -> Data Augmentation
-  -> EfficientNetB3 [frozen -- 10.78M params]
-  -> GlobalAveragePooling2D -> (1536,)
-  -> Dense(128, ReLU)
-  -> BatchNormalization
-  -> Dropout(0.3)
-  -> Dense(2, Softmax)
-```
-
-| Parameter group | Count |
-|-----------------|-------|
-| Total params | 10,981,041 |
-| Trainable | 197,250 (~1.8%) |
-| Non-trainable | 10,783,791 |
-
----
-
-## Training Configuration
-
-| Setting | Value |
-|---------|-------|
-| Optimizer | Adam |
-| Learning rate | 1e-4 (initial) |
-| Loss | Sparse Categorical Crossentropy |
-| Batch size | 16 |
-| Max epochs | 50 |
-
-**Callbacks:**
-- EarlyStopping — patience=10, monitors val_loss
-- ReduceLROnPlateau — patience=3, factor=0.3 (1e-4 -> 3e-5 -> 9e-6 -> 2.7e-6)
-- ModelCheckpoint — saves best weights as efficientnetB3_RMSprop.keras
-
----
-
-## Results
-
-**Best checkpoint reached at Epoch 5.**
-
-| Metric | Value |
-|--------|-------|
-| Val accuracy (best) | 99.40% |
-| Test accuracy | 99.19% |
-
-### Classification Report (Test Set)
-
-| Class | Precision | Recall | F1-Score | Support |
-|-------|-----------|--------|----------|---------|
-| colon_aca | 0.9878 | 0.9959 | 0.9918 | 487 |
-| colon_n | 0.9960 | 0.9881 | 0.9920 | 505 |
-| weighted avg | 0.9920 | 0.9919 | 0.9919 | 992 |
-
----
-
-## Repository Structure
-
-```
-├── notebook.ipynb                                          # Main Colab notebook
-├── efficientnetB3_RMSprop.keras                            # Best checkpoint (by val_loss)
-├── best_colon_cancer_efficientnet_transfer_learning.keras  # Final saved model
-└── README.md
-```
-
----
-
-## Getting Started
-
+## Quick Start
 ```python
-# Install dependencies
-pip install tensorflow kagglehub scikit-learn tqdm matplotlib seaborn
+# 1. Install dependencies
+pip install tensorflow kagglehub scikit-learn
 
-# Download dataset
-import kagglehub
-path = kagglehub.dataset_download(
-    "andrewmvd/lung-and-colon-cancer-histopathological-images"
-)
-
-# Load saved model
+# 2. Load the final model
 from tensorflow import keras
-model = keras.models.load_model(
-    "best_colon_cancer_efficientnet_transfer_learning.keras"
-)
+model = keras.models.load_model("best_colon_cancer_efficientnet_transfer_learning.keras")
 ```
+
 
 ---
-
-## Dependencies
-
-```
-tensorflow >= 2.x
-numpy
-matplotlib
-seaborn
-scikit-learn
-tqdm
-kagglehub
-```
-
----
-
-## License
-
-This project is developed for academic purposes.
-Dataset credit: [LC25000 — Andrew MVD](https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images)
+*Academic project. Dataset credit: Andrew MVD.*
