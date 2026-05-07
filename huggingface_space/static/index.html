@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colon Cancer Classifier | AI Medical Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=NTR&family=Patrick+Hand&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div class="container" id="home">
+        <nav class="inline-nav">
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#classifier">Classifier</a>
+                <a href="#about">About</a>
+            </div>
+        </nav>
+        <header class="hero-section">
+            <h1 class="display-text">Colon Cancer <span>Classifier</span></h1>
+            <p class="body-text">High-accuracy histopathological image analysis using Deep Learning</p>
+        </header>
+
+        <section id="classifier">
+            <main class="main-card glass-morphism">
+                <div class="upload-area" id="drop-zone">
+                    <div class="card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 1 1-2-2V6h6v4a2 2 0 1 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
+                    </div>
+                    <h3 class="display-text small">Upload Histopathology Image</h3>
+                    <p class="body-text">Drag and drop or click to browse</p>
+                    <input type="file" id="file-input" accept="image/*">
+                </div>
+
+                <div class="preview-container" id="preview-container">
+                    <div class="image-wrapper">
+                        <img id="image-preview" src="#" alt="Preview">
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="analyze-btn">
+                            <span class="loader" id="loader"></span>
+                            <span id="btn-text">Analyze Image</span>
+                        </button>
+                        <button class="btn btn-outline" id="reset-btn">Reset</button>
+                    </div>
+                </div>
+
+                <div class="results-section" id="results-section">
+                    <div class="result-header">
+                        <div class="prediction-label display-text" id="main-prediction">---</div>
+                        <div class="confidence-badge" id="main-confidence">0% Confidence</div>
+                    </div>
+                    
+                    <div id="prob-bars" class="mono-text">
+                        <!-- Progress bars will be injected here -->
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2 class="display-text">About the Model</h2>
+            <div class="about-grid">
+                <div class="about-card glass-morphism">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </div>
+                    <h3>Dataset</h3>
+                    <p class="body-text">Trained on the <strong>LC25000</strong> dataset, featuring 10,000 high-resolution histopathological images of colon tissue, split into Adenocarcinoma and Benign categories.</p>
+                </div>
+                <div class="about-card glass-morphism">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Architecture</h3>
+                    <p class="body-text">Built on <strong>EfficientNetB3</strong> with Transfer Learning. The model uses 10.7M pre-trained parameters and a custom classification head for medical precision.</p>
+                </div>
+                <div class="about-card glass-morphism">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Performance</h3>
+                    <p class="body-text">Achieved <strong>99.4% validation accuracy</strong>. Optimized with Adam (LR=1e-4) and advanced callbacks like EarlyStopping and Learning Rate Reduction.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer-contact">
+            <div class="footer-line"></div>
+            <div class="footer-content">
+                <p class="footer-label">Designed and built by</p>
+                <p class="footer-name">Ahmed Ayman Alhofy</p>
+                <div class="footer-socials">
+                    <a href="https://ahmedayman.vercel.app/" target="_blank" title="Portfolio">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </a>
+                    <a href="https://github.com/AhmedAyman4" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ahmed-alhofy/" target="_blank" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="mailto:ahmedalhofy42@gmail.com" title="Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Model files
+huggingface_space/model/
+final-saved-models/
+
+# Scratch and temporary files
+scratch/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environments
+.env
+venv/
+.venv/
+env/
+.env/
