@@ -10,17 +10,6 @@
 > Binary classification of colon histopathology images into **Colon Adenocarcinoma**
 > vs **Benign Tissue** using transfer learning on the LC25000 dataset.
 
----
-
-## Team Members
-
-| Name |
-|------|
-| Ahmed Ayman Ahmed El-Hofi |
-| Ahmed Abdullah Abdel-Fattah Nassar |
-| Ibrahim Mohamed El-Gharbawy |
-| Ahmed Ashraf Samy Abu Shady |
-| Mohamed Ashraf Kamal Omara |
 
 ---
 
