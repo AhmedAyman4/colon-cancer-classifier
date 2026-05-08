@@ -130,6 +130,21 @@ dropZone.addEventListener('drop', (e) => {
     }
 });
 
+// Sample Images Click Handler
+document.querySelectorAll('.sample-img').forEach(img => {
+    img.addEventListener('click', async () => {
+        try {
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const filename = img.src.split('/').pop();
+            const file = new File([blob], filename, { type: 'image/jpeg' });
+            handleFile(file);
+        } catch (error) {
+            console.error('Error loading sample image:', error);
+        }
+    });
+});
+
 function handleFile(file) {
     if (!file.type.startsWith('image/')) {
         alert('Please upload an image file.');

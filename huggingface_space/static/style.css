@@ -261,6 +261,36 @@ body {
     display: none;
 }
 
+/* Sample Images */
+.sample-images-container {
+    margin-top: var(--space-8);
+    text-align: center;
+}
+
+.sample-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+}
+
+.sample-img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.sample-img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    border-color: var(--primary);
+}
+
 /* Preview */
 .preview-container {
     display: none;
