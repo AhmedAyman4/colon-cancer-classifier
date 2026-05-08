@@ -3,7 +3,7 @@ huggingface_space/model/
 final-saved-models/
 
 # Scratch and temporary files
-scratch/
+# scratch/
 
 # Python
 __pycache__/
