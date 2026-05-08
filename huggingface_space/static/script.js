@@ -59,6 +59,31 @@ gsap.from('.main-card', {
     delay: 0.6
 });
 
+// Section Reveal Animations
+gsap.from('.about-card', {
+    scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top 80%',
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "power3.out"
+});
+
+gsap.from('.insights-section .visual-asset', {
+    scrollTrigger: {
+        trigger: '.insights-section',
+        start: 'top 80%',
+    },
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.3,
+    ease: "power3.out"
+});
+
 // --- Interactivity ---
 
 // Active Link Tracking (Simplified)
