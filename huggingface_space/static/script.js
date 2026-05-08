@@ -22,14 +22,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Hero Entrance
 const heroTitle = document.querySelector('.hero-section .display-text');
-const titleText = heroTitle.textContent;
-heroTitle.innerHTML = titleText.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+const processNode = (node) => {
+    if (node.nodeType === 3) { // Text node
+        const chars = node.textContent.split('').map(char => 
+            `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = chars;
+        while (tempDiv.firstChild) {
+            node.parentNode.insertBefore(tempDiv.firstChild, node);
+        }
+        node.parentNode.removeChild(node);
+    } else if (node.nodeType === 1) { // Element node
+        Array.from(node.childNodes).forEach(processNode);
+    }
+};
+
+Array.from(heroTitle.childNodes).forEach(processNode);
 
 gsap.from('.char', {
     y: 100,
     opacity: 0,
     duration: 0.8,
-    stagger: 0.05,
+    stagger: 0.03,
     ease: "back.out(1.7)",
     delay: 0.2
 });
