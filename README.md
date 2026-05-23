@@ -1,5 +1,4 @@
 # Colon Cancer Histopathology Classification
-### Team Gradiators
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?logo=tensorflow&logoColor=white)
 ![EfficientNetB3](https://img.shields.io/badge/Backbone-EfficientNetB3-blue)
@@ -58,7 +57,3 @@ pip install tensorflow kagglehub scikit-learn
 from tensorflow import keras
 model = keras.models.load_model("best_colon_cancer_efficientnet_transfer_learning.keras")
 ```
-
-
----
-*Academic project. Dataset credit: Andrew MVD.*
